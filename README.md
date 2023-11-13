@@ -1,2 +1,13 @@
-# 100DaysOneCommit
-100일 1일1커밋 스터디
+
+## This is one-commit-one-day project dashboard
+
+### Requirement
+Python3  
+
+modules  
+- Flask
+- requests
+- bs4
+- pytz
+
+
