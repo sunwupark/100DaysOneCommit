@@ -47,10 +47,15 @@ jobs:
         uses: flameddd/screenshots-ci-action@master
         with:
           url: http:/localhost:4444
+      
+      - name: Download Specific Screenshots
+        run: |
+          mkdir filtered-screenshots
+          cp ./screenshots/desktopPage1280x720* filtered-screenshots/
 
       - uses: actions/upload-artifact@v2
         with:
-          path: screenshots
+          path: filtered-screenshots
           name: Download-desktop-screenshots # Put URL1 screenshots into Download-desktop-screenshots
       
       - name: check ./screenshots/*
