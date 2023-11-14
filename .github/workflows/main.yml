@@ -43,10 +43,13 @@ jobs:
         env:
           CI: 'true'
 
-      - name: screenshots-desktop-facebook
+      - name: screenshots-desktop
         uses: flameddd/screenshots-ci-action@master
         with:
           url: http:/localhost:4444
+          width: 1280px
+          height: 720px
+
 
       - uses: actions/upload-artifact@v2
         with:
