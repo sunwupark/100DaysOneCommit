@@ -1,0 +1,44 @@
+name: cron
+
+on:
+  schedule:
+    # 실제 스케쥴 작업이 시작될 cron을 등록하면 됩니다.
+    # 크론은 https://crontab.guru/ 여기서 확인하면 좋을 것 같습니다.
+    # 이 크론은 평일 5시 (한국시간 14시)에 실행됩니다.
+    - cron: '0 5 * * 1-5'
+
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python 3.x
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flask requests beautifulsoup4 pytz
+
+      - name: Start Application
+        run: python app.py &
+
+      - name: Wait for Application to Start
+        run: sleep 5
+
+      - name: Take Screenshot
+        uses: mheap/github-action-screenshot@v2
+        with:
+          url: http://localhost:4444
+          output: screenshot.png
+
+      - name: Upload Screenshot Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: screenshot
+          path: screenshot.png
