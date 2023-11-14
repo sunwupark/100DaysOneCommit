@@ -7,7 +7,7 @@
     # 이 크론은 평일 5시 (한국시간 14시)에 실행됩니다.
 #    - cron: '0 5 * * 1-5'
 
-ame: Issue 18 Workflow
+name: Issue 18 Workflow
 
 on:
   push:
