@@ -39,9 +39,9 @@ jobs:
         run: sleep 5
 
       - name: install puppeteer-headful
-      uses: mujo-code/puppeteer-headful@master
-      env:
-        CI: 'true'
+        uses: mujo-code/puppeteer-headful@master
+        env:
+          CI: 'true'
 
       - name: screenshots-desktop-facebook
         uses: flameddd/screenshots-ci-action@master
@@ -52,5 +52,5 @@ jobs:
         with:
           path: screenshots
           name: Download-desktop-screenshots # Put URL1 screenshots into Download-desktop-screenshots
-          
+
       - run: rm ./screenshots/* # Remove URL1 files
