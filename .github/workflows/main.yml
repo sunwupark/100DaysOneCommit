@@ -53,6 +53,14 @@ jobs:
           mkdir filtered-screenshots
           cp ./screenshots/desktopPage1280x720* filtered-screenshots/
 
+      - name: Send KakaoTalk notification
+        uses: Alfex4936/kakaotalk-ci-action@main
+        with:
+          kakao_access_token: ${{ secrets.KAKAO_ACCESS_TOKEN }}
+          function_name: send_to_me_custom
+          template_id: "93112"
+          template_args: '{"title": "제목", "desc": "설명"}'
+
       - uses: actions/upload-artifact@v2
         with:
           path: filtered-screenshots
