@@ -1,11 +1,11 @@
 name: cron
 
-on:
-  schedule:
+#on:
+#  schedule:
     # 실제 스케쥴 작업이 시작될 cron을 등록하면 됩니다.
     # 크론은 https://crontab.guru/ 여기서 확인하면 좋을 것 같습니다.
     # 이 크론은 평일 5시 (한국시간 14시)에 실행됩니다.
-    - cron: '0 5 * * 1-5'
+#    - cron: '0 5 * * 1-5'
 
 jobs:
   cron:
@@ -15,10 +15,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up Python 3.x
+      - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
-          python-version: 3.x
+          python-version: 3.8
 
       - name: Install Dependencies
         run: |
