@@ -47,13 +47,13 @@ jobs:
         uses: flameddd/screenshots-ci-action@master
         with:
           url: http:/localhost:4444
-          width: 1280px
-          height: 720px
-
 
       - uses: actions/upload-artifact@v2
         with:
           path: screenshots
           name: Download-desktop-screenshots # Put URL1 screenshots into Download-desktop-screenshots
+      
+      - name: check ./screenshots/*
+        run: ls ./screenshots/* # Check URL1 files
 
-      - run: rm ./screenshots/* # Remove URL1 files
+      #- run: rm ./screenshots/* # Remove URL1 files
