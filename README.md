@@ -1,5 +1,5 @@
 
-## This is one-commit-one-day project dashboard
+## This is one-commit-one-day project dashboard!
 
 ### Requirement
 Python3  
@@ -9,5 +9,4 @@ modules
 - requests
 - bs4
 - pytz
-
 
