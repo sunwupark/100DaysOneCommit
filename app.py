@@ -54,6 +54,7 @@ def get_user_list():
         fine = int(0)
         total_day = int(0)
         date_commit = int(0)
+        total_days = list()
 
         # 각 유저의 잔디밭에 있는 데이터 가져오기
         for rect in soup.select('.ContributionCalendar-day'):
@@ -66,7 +67,7 @@ def get_user_list():
                 continue
 
             # 시작 날짜가 오늘 날짜보다 전이면 continue
-            if start_date < data_date: 
+            if start_date <= data_date: 
                 total_day = total_day + 1
 
                 # 커밋을 하지 않았다면!
@@ -79,10 +80,19 @@ def get_user_list():
                     # 벌금 올리기
                     fine = fine + 1
                 else:
+                    total_days.append(data_date.strftime('%Y-%m-%d'))
                     # span으로 나누어서 몇개의 commit을 했는지 계산
-                    date_commit = int(rect.find('span').text.split(' ')[0])
-                    if date_commit > 0:
-                        consecutive = consecutive + 1
+                    # date_commit = int(rect.find('span').text.split(' ')[0])
+                    tool_tip = rect.get('id')
+                    tooltip_element = soup.find('tool-tip', attrs={'for': f'{tool_tip}'})
+                    date_commit = 0
+            
+                    if tooltip_element:
+                        tooltip_text = tooltip_element.text.split('contribution')[0].strip()
+                        date_commit = int(tooltip_text)
+
+                        if date_commit > 0:
+                            consecutive = consecutive + 1
                     
                 commit = commit + date_commit
                 date_commit = 0
@@ -94,7 +104,11 @@ def get_user_list():
         user["consecutive_date"] = consecutive
         user["fine"] = fine
         user["new_fine"] = new_fine
+        user["commit_dates"] = total_days
 
+        #print(user)
+
+        #state = commit / total_day * 100
         state = commit / total_day * 100
         if state <= 60:
             user["state"] = "danger"
@@ -112,7 +126,7 @@ def get_user_list():
             user["state"] = "success"
             user["state_text"] = "A"
     
-    users.sort(key=lambda user: user["commit"], reverse=True)
+    users.sort(key=lambda user: user["consecutive_date"], reverse=True)
 
     return render_template("user.html", result=users)
 
